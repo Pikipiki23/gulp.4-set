@@ -1,0 +1,24 @@
+include ../partials/blocks/breadcrumbs.pug
+doctype
+html(lang='ru')
+  head
+    block head
+      title= title
+      meta(name='viewport' content='width=device-width')
+      meta(charset='utf-8')
+      link(rel='stylesheet' href='/assets/css/screen.css')
+      script(src='/assets/js/libs.js')
+      script(src='/assets/js/script.js')
+  body
+    block header
+      include ../partials/header.pug
+    block content
+      .row
+        block sidebar-left
+          include ../partials/blocks/sidebar-left.pug
+        main.column
+          block main
+        block sidebar-right
+          include ../partials/blocks/sidebar-right.pug
+    block footer
+      include ../partials/footer.pug

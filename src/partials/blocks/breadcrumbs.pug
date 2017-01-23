@@ -1,0 +1,9 @@
+mixin breadcrumbs(pageBreadList)
+  nav(aria-label="Вы находитесь здесь:" role="navigation")
+    ul.breadcrumbs
+      li: a(href="/") Главная
+      each value, index in Object.keys(pageBreadList)
+        if index < Object.keys(pageBreadList).length - 1
+          li: a(href='#')= pageBreadList[index]
+        else
+          li: span= pageBreadList[index]

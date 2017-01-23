@@ -1,0 +1,44 @@
+extends ../layout/base.pug
+block prepend head
+  -var title = 'home page';
+block  prepend header
+  .row
+    .column prepend
+block  append header
+  .row
+    .column appended
+
+block main
+    +breadcrumbs(['section', 'article'])
+    h1 h1
+    h2 h2
+    h3 h3
+    h4 h4
+    h5 h5
+    p paragraph
+    table
+        tbody
+          tr
+            td td
+            td td
+            td td
+          tr
+            td td
+            td td
+            td td
+          tr
+            td td
+            td td
+            td td
+    ul
+      li list
+      li list
+      li list
+
+    form
+      input(type='text')
+      select
+        option option 1
+        option option 2
+        option option 3
+      .slider

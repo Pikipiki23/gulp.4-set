@@ -1,0 +1,33 @@
+{
+  "dist": {
+    "server_dist":  "dist",
+    "html":         "dist/",
+    "js":           "dist/assets/js",
+    "css":          "dist/assets/css",
+    "fonts":        "dist/assets/fonts",
+    "img_template": "dist/assets/img",
+    "img_bs64":     "dist/assets/img/base64",
+    "img_content":  "dist/img"
+  },
+  "src": {
+    "pug":          "src/pages/*.pug",
+    "js_libs":      "src/assets/js/lib/**/*.js",
+    "js":           "src/assets/js/*.js",
+    "sass":         "src/assets/scss/*.scss",
+    "fonts":        "src/assets/fonts/**/*.*",
+    "img_template": "src/assets/img/*.*",
+    "img_bs64":     "src/assets/img/base64/*.*",
+    "img_content":  "src/assets/img.content/*.*"
+  },
+  "watch": {
+    "html": {
+      "pages": "src/pages/**/*.pug",
+      "layout": "src/layout/**/*.pug",
+      "partials": "src/partials/**/*.pug"
+    },
+    "js":     "src/assets/js/**/*.js",
+    "style":  "src/assets/scss/**/*.scss",
+    "img":    "src/assets/{img,img.content}/**/*.*",
+    "fonts":  "src/assets/fonts/**/*.*"
+  }
+}

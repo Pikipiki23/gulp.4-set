@@ -1,0 +1,6 @@
+/* IDE */
+/.idea/
+/dist/
+
+/.sass-cache/
+/node_modules/
