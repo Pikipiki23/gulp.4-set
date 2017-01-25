@@ -5,6 +5,7 @@ import fs       from "fs";
 import rimraf   from "rimraf";
 import yargs    from "yargs";
 import merge    from "merge-stream";
+import htmlInjector from "bs-html-injector";
 
 const $ = plugins();
 
@@ -30,10 +31,13 @@ function clean(done) {
 
 // server start
 function server(done) {
+    browserSync.use(htmlInjector, {
+            files: path.dist.html + "/*.html"
+        });
     browserSync.init({
-        server: path.dist.server_dist,
-        notify: false
-    });
+            server: path.dist.server_dist,
+            notify: true
+        });
     done();
 }
 
@@ -43,7 +47,11 @@ function pages() {
             pretty: true
         }))
         .pipe(gulp.dest(path.dist.html))
-        .pipe(browserSync.stream());
+        .on('end', function() {
+            browserSync.reload({stream: true})
+        });
+        // .pipe(browserSync.stream({stream: true}));
+        // .pipe(browserSync.stream());
 }
 
 function sass() {
@@ -82,6 +90,7 @@ function sass() {
     ];
 
     let source = gulp.src(path.src.sass)
+        .pipe($.plumber())
         .pipe($.if(!PRODUCTION, $.sourcemaps.init()))
         .pipe($.sass({
             includePaths: ["node_modules/foundation-sites/scss"]

@@ -1,7 +1,7 @@
 @import 'settings';
 @import 'foundation';
 
-@include foundation-everything(true);
+@include foundation-everything(true)
 //@include foundation-global-styles;
 //@include foundation-flex-grid();
 //@include foundation-flex-classes;
@@ -11,4 +11,6 @@
 //@include foundation-visibility-classes;
 //@include foundation-breadcrumbs;
 
-
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+}
