@@ -96,10 +96,6 @@ function sass() {
             includePaths: ["node_modules/foundation-sites/scss"]
         }).on("error", $.sass.logError))
         .pipe($.postcss(options))
-        .pipe($.if(PRODUCTION, $.uncss(
-            {
-                html: ["dist/**/*.html"]
-            })))
         .pipe($.autoprefixer({browsers: ["last 2 version"]}));
 
 
@@ -141,8 +137,9 @@ function images() {
 }
 
 function scripts(done) {
+    let foundation = gulp.src('node_modules/foundation-sites/dist/js/foundation.min.js');
+
     let libs = gulp.src(path.src.js_libs)
-        .pipe($.if(PRODUCTION, $.uglify()))
         .pipe($.concat("libs.js"));
 
     let appScripts = gulp.src(path.src.js)
@@ -152,7 +149,7 @@ function scripts(done) {
         }))
         .pipe($.if(!PRODUCTION, $.sourcemaps.write()));
 
-    return merge(libs, appScripts)
+    return merge(libs, appScripts, foundation)
         .pipe(gulp.dest(path.dist.js))
         .pipe(browserSync.stream());
 }
