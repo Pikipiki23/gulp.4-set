@@ -17,7 +17,7 @@ let path = JSON.parse(fs.readFileSync("./path.config.json"));
 
 // build the "build" folder by running all of the above tasks
 gulp.task("build",
-    gulp.series(clean, pages, sass, scripts, images));
+    gulp.series(clean, pages, sass, scripts, images, fonts));
 
 // build tempalets, run the server, and watch for file changes
 gulp.task("default",
@@ -32,12 +32,12 @@ function clean(done) {
 // server start
 function server(done) {
     browserSync.use(htmlInjector, {
-            files: path.dist.html + "/*.html"
-        });
+        files: path.dist.html + "/*.html"
+    });
     browserSync.init({
-            server: path.dist.server_dist,
-            notify: true
-        });
+        server: path.dist.server_dist,
+        notify: true
+    });
     done();
 }
 
@@ -47,11 +47,11 @@ function pages() {
             pretty: true
         }))
         .pipe(gulp.dest(path.dist.html))
-        .on('end', function() {
+        .on('end', function () {
             browserSync.reload({stream: true})
         });
-        // .pipe(browserSync.stream({stream: true}));
-        // .pipe(browserSync.stream());
+    // .pipe(browserSync.stream({stream: true}));
+    // .pipe(browserSync.stream());
 }
 
 function sass() {
@@ -122,25 +122,34 @@ function sass() {
 // Copy and compress images
 function images() {
     let templatesImages = gulp.src(path.src.img_template)
-        .pipe($.imagemin())
+        .pipe($.if(PRODUCTION, $.imagemin()))
         .pipe(gulp.dest(path.dist.img_template));
 
     let inlineImages = gulp.src(path.src.img_bs64)
         .pipe(gulp.dest(path.dist.img_bs64));
 
     let contentImages = gulp.src(path.src.img_content)
-        .pipe($.imagemin())
+        .pipe($.if(PRODUCTION, $.imagemin()))
         .pipe(gulp.dest(path.dist.img_content));
 
     return merge(templatesImages, inlineImages, contentImages)
         .pipe(browserSync.stream());
 }
 
+function fonts() {
+    let fonts = gulp.src(path.src.fonts)
+        .pipe(gulp.dest(path.dist.fonts));
+
+    return fonts.pipe(browserSync.stream());
+}
+
 function scripts(done) {
     let foundation = gulp.src('node_modules/foundation-sites/dist/js/foundation.min.js');
 
     let libs = gulp.src(path.src.js_libs)
-        .pipe($.concat("libs.js"));
+        .pipe($.concat("libs.js")).pipe($.babel({
+            presets: ["es2015"]
+        }));
 
     let appScripts = gulp.src(path.src.js)
         .pipe($.if(!PRODUCTION, $.sourcemaps.init()))
@@ -162,4 +171,5 @@ function watch() {
     gulp.watch(path.watch.style).on("all", gulp.series(sass));
     gulp.watch(path.watch.js).on("all", gulp.series(scripts));
     gulp.watch(path.watch.img).on("all", gulp.series(images));
+    gulp.watch(path.watch.fonts).on("all", gulp.series(fonts));
 }
