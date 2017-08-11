@@ -6,6 +6,8 @@ import rimraf   from "rimraf";
 import yargs    from "yargs";
 import merge    from "merge-stream";
 import htmlInjector from "bs-html-injector";
+import render from "gulp-smarty4js-render";
+import * as path_ from "path";
 
 const $ = plugins();
 
@@ -17,7 +19,7 @@ let path = JSON.parse(fs.readFileSync("./path.config.json"));
 
 // build the "build" folder by running all of the above tasks
 gulp.task("build",
-    gulp.series(clean, pages, sass, scripts, images, fonts));
+    gulp.series(clean, pages, smarty, sass, scripts, images, fonts));
 
 // build tempalets, run the server, and watch for file changes
 gulp.task("default",
@@ -39,6 +41,19 @@ function server(done) {
         notify: true
     });
     done();
+}
+
+
+function smarty() {
+    // console.log(path_.resolve( __dirname, "src/" ));
+    return gulp.src('src/smarty/page.tpl')
+        .pipe(render({
+            left_delimiter: "{",
+            right_delimiter: "}",
+            rootDir: __dirname,
+            templateDataDir: __dirname + "/src/data/",
+        }))
+        .pipe(gulp.dest('dist/'));
 }
 
 function pages() {
@@ -172,4 +187,5 @@ function watch() {
     gulp.watch(path.watch.js).on("all", gulp.series(scripts));
     gulp.watch(path.watch.img).on("all", gulp.series(images));
     gulp.watch(path.watch.fonts).on("all", gulp.series(fonts));
+    gulp.watch('src/smarty/*.tpl').on("all", gulp.series(smarty));
 }

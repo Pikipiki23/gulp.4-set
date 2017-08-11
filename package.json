@@ -53,5 +53,9 @@
     ]
   },
   "author": "Silmarwen",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "gulp-smarty4js-render": "^0.1.6",
+    "path": "^0.12.7"
+  }
 }
