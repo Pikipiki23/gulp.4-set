@@ -2,15 +2,11 @@ extends ../layout/base.pug
 block prepend head
   -var title = 'home page';
 block  prepend header
-  .row
-    .column prepend
-block  append header
-  .row
-    .column appended
+  | prepend
+block append header
+  | append
 block sidebar-right
-  .column.large-3
-    .test1 test1
-      .test2 test2
+  | sidebar right
 block main
     +breadcrumbs(['section', 'article'])
     h1 h1
@@ -37,7 +33,6 @@ block main
       li list
       li list
       li list
-
     form
       input(type='text')
       select
