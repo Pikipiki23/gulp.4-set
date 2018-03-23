@@ -11,7 +11,7 @@
   },
   "src": {
     "pug":          "src/pages/*.pug",
-    "js_libs":      "src/assets/js/lib/**/*.js",
+    "js_vendors":      "src/assets/js/vendors/**/*.js",
     "js":           "src/assets/js/*.js",
     "sass":         "src/assets/scss/*.scss",
     "fonts":        "src/assets/fonts/**/*.*",

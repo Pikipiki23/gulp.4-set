@@ -145,8 +145,8 @@ function fonts() {
 function scripts(done) {
   let foundation = gulp.src('node_modules/foundation-sites/dist/js/foundation.min.js');
 
-  let libs = gulp.src(path.src.js_libs)
-      .pipe($.concat("libs.js"));
+  let libs = gulp.src(path.src.js_vendors)
+      .pipe($.concat("vendors.js"));
 
   let appScripts = gulp.src(path.src.js)
       .pipe($.if(!PRODUCTION, $.sourcemaps.init()))
