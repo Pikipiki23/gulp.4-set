@@ -1,4 +1,4 @@
-{
+holaque{
   "dist": {
     "server_dist":  "dist",
     "html":         "dist/",
@@ -13,7 +13,7 @@
     "pug":          "src/pages/*.pug",
     "js_vendors":      "src/assets/js/vendors/**/*.js",
     "js":           "src/assets/js/*.js",
-    "sass":         "src/assets/scss/*.scss",
+    "s":         "src/assets/scss/*.scss",
     "fonts":        "src/assets/fonts/**/*.*",
     "img_template": "src/assets/img/*.*",
     "img_bs64":     "src/assets/img/base64/*.*",
@@ -28,6 +28,6 @@
     "js":     "src/assets/js/**/*.js",
     "style":  "src/assets/scss/**/*.scss",
     "img":    "src/assets/{img,img.content}/**/*.*",
-    "fonts":  "src/assets/fonts/**/*.*"
+    ":  "src/assets/fonts/**/*.*"
   }
 }
